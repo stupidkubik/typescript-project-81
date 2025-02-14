@@ -4,6 +4,7 @@
   "description": "[![Actions Status](https://github.com/stupidkubik/typescript-project-81/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/stupidkubik/typescript-project-81/actions)",
   "main": "index.ts",
   "scripts": {
+    "lint": "eslint .",
     "test": "vitest"
   },
   "author": "",
