@@ -2,12 +2,14 @@ import { expect, test } from 'vitest'
 import { Tag } from './src/Tag'
 import { HexletCode } from './src/HexletCode';
 
+const template = { name: 'rob', job: 'hexlet', gender: 'm' };
+
 test('<label for="name">Name</label>', () => {
   expect(new Tag("label", { for: "name" }, "Name").toString()).toBe('<label for="name">Name</label>')
 })
 
 test('HexletCode.formFor with input and textarea', () => {
-  const form = HexletCode.formFor({ name: 'rob', job: 'hexlet', gender: 'm' }, { method: 'post' }, (f) => {
+  const form = HexletCode.formFor(template, { method: 'post' }, (f) => {
     f.input('name');
     f.input('job', { as: 'textarea' });
   });
@@ -15,16 +17,14 @@ test('HexletCode.formFor with input and textarea', () => {
 });
 
 test('HexletCode.formFor with input and class option', () => {
-  const template = { name: 'rob', job: 'hexlet', gender: 'm' };
   const form = HexletCode.formFor(template, {}, (f) => {
     f.input('name', { class: 'user-input' });
     f.input('job');
   });
-  expect(form).toBe('<form action="#" method="post"><label for="name">Name</label><input type="text" name="name" id="name" value="rob" class="user-input"><br><label for="job">Job</label><input type="text" name="job" id="job" value="hexlet"><br></form>');
+  expect(form).toBe('<form action="#" method="post"><label for="name">Name</label><input type="text" name="name" id="name" class="user-input" value="rob"><br><label for="job">Job</label><input type="text" name="job" id="job" value="hexlet"><br></form>');
 });
 
 test('HexletCode.formFor with textarea only', () => {
-  const template = { name: 'rob', job: 'hexlet', gender: 'm' };
   const form = HexletCode.formFor(template, {}, (f) => {
     f.input('job', { as: 'textarea' });
   });
@@ -32,9 +32,17 @@ test('HexletCode.formFor with textarea only', () => {
 });
 
 test('HexletCode.formFor with textarea and custom size', () => {
-  const template = { name: 'rob', job: 'hexlet', gender: 'm' };
   const form = HexletCode.formFor(template, { url: '#' }, (f) => {
     f.input('job', { as: 'textarea', rows: 50, cols: 50 });
   });
   expect(form).toBe('<form action="#" method="post"><label for="job">Job</label><textarea name="job" id="job" cols="50" rows="50">hexlet</textarea><br></form>');
+});
+
+test('HexletCode.formFor with submit button', () => {
+  const form = HexletCode.formFor(template, { method: 'post' }, (f) => {
+    f.input('name');
+    f.input('job');
+    f.submit('Save');
+  });
+  expect(form).toBe('<form action="#" method="post"><label for="name">Name</label><input type="text" name="name" id="name" value="rob"><br><label for="job">Job</label><input type="text" name="job" id="job" value="hexlet"><br><input type="submit" value="Save"></form>');
 });

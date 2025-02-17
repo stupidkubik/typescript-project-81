@@ -12,7 +12,7 @@ export class HexletCode {
       method: 'post',
     };
 
-    const formTag = new Tag('form', formAttributes);
+    const formTag = new Tag('form', formAttributes, '');
     let formContent = '';
 
     if (callback) {
@@ -81,6 +81,11 @@ export class FormBuilder<T extends object> {
     this.formHTML += labelTag.toString();
     this.formHTML += textareaTag.toString();
     this.formHTML += '<br>';
+  }
+
+  public submit(value: string = 'Save'): void {
+    const submitTag = new Tag('input', { type: 'submit', value });
+    this.formHTML += submitTag.toString();
   }
 
   public getFormHTML(): string {

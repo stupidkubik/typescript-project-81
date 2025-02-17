@@ -1,24 +1,29 @@
-import { TagAttributes } from './types'; // Импортируем интерфейс
-
+import { TagAttributes } from './types';
 export class Tag {
   private tagName: string;
-  private attributes: TagAttributes; // Используем интерфейс TagAttributes
+  private attributes: TagAttributes;
   private content: string | null;
 
   constructor(tagName: string, attributes: TagAttributes = {}, content: string | null = null) {
     this.tagName = tagName;
-    this.attributes = attributes;
+    this.attributes = this.normalizeAttributes(attributes);
     this.content = content;
   }
 
-  public toString(): string {
-    let attributeString = '';
-    for (const key in this.attributes) {
-      const value = this.attributes[key]; // Получаем значение атрибута, которое может быть string или undefined
-      if (value !== undefined) { // Проверяем, что значение не undefined
-        attributeString += ` ${key}="${value}"`;
+  private normalizeAttributes(attributes: TagAttributes): TagAttributes {
+    const normalized: TagAttributes = {};
+    for (const [key, value] of Object.entries(attributes)) {
+      if (value !== undefined) {
+        normalized[key] = String(value);
       }
     }
+    return normalized;
+  }
+
+  public toString(): string {
+    const attributeString = Object.entries(this.attributes)
+      .map(([key, value]) => ` ${key}="${value}"`)
+      .join('');
 
     if (this.content !== null) {
       // Парный тег

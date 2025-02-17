@@ -18,5 +18,5 @@ export interface TextareaOptions {
   class?: string;
   rows?: number;
   cols?: number;
-  as?: 'textarea'; // Add 'as' property for type differentiation
+  as?: 'textarea';
 }
