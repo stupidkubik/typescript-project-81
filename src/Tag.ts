@@ -1,18 +1,23 @@
+import { TagAttributes } from './types'; // Импортируем интерфейс
+
 export class Tag {
   private tagName: string;
-  private attributes: { [key: string]: string };
-  private content: string | null; // Добавляем content для парных тегов
+  private attributes: TagAttributes; // Используем интерфейс TagAttributes
+  private content: string | null;
 
-  constructor(tagName: string, attributes: { [key: string]: string } = {}, content: string | null = null) {
+  constructor(tagName: string, attributes: TagAttributes = {}, content: string | null = null) {
     this.tagName = tagName;
     this.attributes = attributes;
-    this.content = content; // Инициализируем content
+    this.content = content;
   }
 
   public toString(): string {
     let attributeString = '';
     for (const key in this.attributes) {
-      attributeString += ` ${key}="${this.attributes[key]}"`;
+      const value = this.attributes[key]; // Получаем значение атрибута, которое может быть string или undefined
+      if (value !== undefined) { // Проверяем, что значение не undefined
+        attributeString += ` ${key}="${value}"`;
+      }
     }
 
     if (this.content !== null) {

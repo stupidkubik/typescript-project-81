@@ -1,21 +1,47 @@
-import { Tag } from './src/Tag'; // Путь может отличаться в зависимости от вашей структуры
+import { HexletCode } from './src/HexletCode';
 
-// Создание тега <input type="text" id="username" class="form-input">
-const inputTag = new Tag('input', {
-  type: 'text',
-  id: 'username',
-  class: 'form-input'
+interface TemplateType {
+  name: string;
+  job: string;
+  gender: 'm' | 'f';
+}
+
+const template: TemplateType = { name: 'rob', job: 'hexlet', gender: 'm' };
+
+console.log("Example 1:");
+let form = HexletCode.formFor<TemplateType>(template, { method: 'post' }, (f) => {
+  f.input('name');
+  f.input('job', { as: 'textarea' });
 });
+console.log(form);
 
-const inputHTML = inputTag.toString();
-console.log(inputHTML); // Выведет: <input type="text" id="username" class="form-input">
+console.log("\nExample 2:");
+form = HexletCode.formFor<TemplateType>(template, {}, (f) => {
+  f.input('name', { class: 'user-input' });
+  f.input('job');
+});
+console.log(form);
 
-// Создание тега <br> без атрибутов
-const brTag = new Tag('br');
-const brHTML = brTag.toString();
-console.log(brHTML); // Выведет: <br>
+console.log("\nExample 3:");
+form = HexletCode.formFor<TemplateType>(template, {}, (f) => {
+  f.input('job', { as: 'textarea' });
+});
+console.log(form);
 
-// Создание тега <hr class="divider">
-const hrTag = new Tag('hr', { class: 'divider' });
-const hrHTML = hrTag.toString();
-console.log(hrHTML); // Выведет: <hr class="divider">
+console.log("\nExample 4:");
+form = HexletCode.formFor<TemplateType>(template, { url: '#' }, (f) => {
+  f.input('job', { as: 'textarea', rows: 50, cols: 50 });
+});
+console.log(form);
+
+console.log("\nExample 5 (Error Expected):");
+
+try {
+  form = HexletCode.formFor<TemplateType>(template, { url: '/users' }, (f) => {
+    f.input('name');
+    f.input('job', { as: 'textarea' });
+  });
+  console.log(form); // This line should not be reached if error is thrown
+} catch (e) {
+  console.error("Error caught:", e.message);
+}
