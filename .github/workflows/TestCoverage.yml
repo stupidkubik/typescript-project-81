@@ -1,6 +1,5 @@
-name: TestCoverage,
+name: TestCoverage
 #
-
 on:
   push:
     branches:
