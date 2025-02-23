@@ -3,20 +3,22 @@ export interface TagAttributes {
 }
 
 export interface FormOptions {
-  url?: string;
   method?: string;
+  url?: string;
 }
 
 export interface InputOptions {
+  name: string;
   type?: string;
-  class?: string;
   value?: string | number | boolean;
+  class?: string;
   checked?: boolean;
 }
 
 export interface TextareaOptions {
-  class?: string;
-  rows?: number;
   cols?: number;
+  rows?: number;
+  name?: string;
+  class?: string;
   as?: 'textarea';
 }

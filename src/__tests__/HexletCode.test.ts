@@ -12,9 +12,9 @@ test('formFor with input and textarea', () => {
   expect(form).toBe(
     '<form action="#" method="post">' +
     '<label for="name">Name</label>' +
-    '<input type="text" name="name" id="name" value="rob"><br>' +
+    '<input type="text" name="name" value="rob">' +
     '<label for="job">Job</label>' +
-    '<textarea name="job" id="job" cols="20" rows="40">hexlet</textarea><br>' +
+    '<textarea name="job" cols="20" rows="40">hexlet</textarea>' +
     '</form>'
   );
 });
@@ -29,9 +29,9 @@ test('formFor with submit button', () => {
   expect(form).toBe(
     '<form action="#" method="post">' +
     '<label for="name">Name</label>' +
-    '<input type="text" name="name" id="name" value="rob"><br>' +
+    '<input type="text" name="name" value="rob">' +
     '<label for="job">Job</label>' +
-    '<input type="text" name="job" id="job" value="hexlet"><br>' +
+    '<input type="text" name="job" value="hexlet">' +
     '<input type="submit" value="Save">' +
     '</form>'
   );

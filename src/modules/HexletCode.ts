@@ -7,9 +7,10 @@ export class HexletCode {
     options: FormOptions = {},
     callback?: (f: FormBuilder<T>) => void
   ): string {
+
     const formAttributes: TagAttributes = {
       action: options.url || '#',
-      method: 'post',
+      method: options.method || 'post',
     };
 
     const formTag = new Tag('form', formAttributes, '');
@@ -40,7 +41,6 @@ export class FormBuilder<T extends object> {
     if (!(name in this.template)) {
       throw new Error(`Field '${String(name)}' does not exist in the template.`);
     }
-
     if (options && 'as' in options && options.as === 'textarea') {
       this.textarea(name, options as TextareaOptions);
       return;
@@ -49,16 +49,13 @@ export class FormBuilder<T extends object> {
     const inputAttributes: TagAttributes = {
       type: options && (options as InputOptions).type || 'text',
       name: String(name),
-      id: String(name),
-      class: options?.class,
       value: this.template[name] !== undefined ? String(this.template[name]) : undefined,
+      class: options?.class,
       checked: options && (options as InputOptions).checked ? 'checked' : undefined,
     };
     const inputTag = new Tag('input', inputAttributes);
     const labelTag = new Tag('label', { for: String(name) }, this.capitalizeFirstLetter(String(name)));
-    this.formHTML += labelTag.toString();
-    this.formHTML += inputTag.toString();
-    this.formHTML += '<br>';
+    this.formHTML += labelTag.toString() + inputTag.toString();
   }
 
   public textarea<K extends Extract<keyof T, string>>(
@@ -68,19 +65,15 @@ export class FormBuilder<T extends object> {
     if (!(name in this.template)) {
       throw new Error(`Field '${String(name)}' does not exist in the template.`);
     }
-
     const textareaAttributes: TagAttributes = {
       name: String(name),
-      id: String(name),
       class: options.class,
       cols: options.cols !== undefined ? String(options.cols) : '20',
       rows: options.rows !== undefined ? String(options.rows) : '40',
     };
     const textareaTag = new Tag('textarea', textareaAttributes, this.template[name] !== undefined ? String(this.template[name]) : '');
     const labelTag = new Tag('label', { for: String(name) }, this.capitalizeFirstLetter(String(name)));
-    this.formHTML += labelTag.toString();
-    this.formHTML += textareaTag.toString();
-    this.formHTML += '<br>';
+    this.formHTML += labelTag.toString() + textareaTag.toString();
   }
 
   public submit(value: string = 'Save'): void {
@@ -92,7 +85,7 @@ export class FormBuilder<T extends object> {
     return this.formHTML;
   }
 
-  private capitalizeFirstLetter(string: string): string {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  private capitalizeFirstLetter(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }

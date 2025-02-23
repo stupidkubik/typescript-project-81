@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "vitest",
-    "coverage": "npx vitest run --coverage"
+    "coverage": "npx vitest run --coverage",
+    "exec": "npx ts-node ./src/index.ts"
   },
   "author": "",
   "license": "ISC",

@@ -18,3 +18,6 @@ lint:
 
 coverage:
 	npm run coverage
+
+exec:
+	npm run exec
