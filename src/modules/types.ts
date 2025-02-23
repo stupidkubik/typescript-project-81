@@ -8,7 +8,6 @@ export interface FormOptions {
 }
 
 export interface InputOptions {
-  name: string;
   type?: string;
   value?: string | number | boolean;
   class?: string;

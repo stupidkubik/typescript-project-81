@@ -17,7 +17,7 @@ lint:
 	npm run lint
 
 coverage:
-	npm run coverage
+	npm run test-coverage
 
 exec:
 	npm run exec

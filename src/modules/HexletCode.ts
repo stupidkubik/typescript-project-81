@@ -9,8 +9,8 @@ export class HexletCode {
   ): string {
 
     const formAttributes: TagAttributes = {
-      action: options.url || '#',
       method: options.method || 'post',
+      action: options.url || '#',
     };
 
     const formTag = new Tag('form', formAttributes, '');
@@ -47,8 +47,8 @@ export class FormBuilder<T extends object> {
     }
 
     const inputAttributes: TagAttributes = {
-      type: options && (options as InputOptions).type || 'text',
       name: String(name),
+      type: options && (options as InputOptions).type || 'text',
       value: this.template[name] !== undefined ? String(this.template[name]) : undefined,
       class: options?.class,
       checked: options && (options as InputOptions).checked ? 'checked' : undefined,
@@ -66,10 +66,10 @@ export class FormBuilder<T extends object> {
       throw new Error(`Field '${String(name)}' does not exist in the template.`);
     }
     const textareaAttributes: TagAttributes = {
-      name: String(name),
-      class: options.class,
       cols: options.cols !== undefined ? String(options.cols) : '20',
       rows: options.rows !== undefined ? String(options.rows) : '40',
+      name: String(name),
+      class: options.class,
     };
     const textareaTag = new Tag('textarea', textareaAttributes, this.template[name] !== undefined ? String(this.template[name]) : '');
     const labelTag = new Tag('label', { for: String(name) }, this.capitalizeFirstLetter(String(name)));
