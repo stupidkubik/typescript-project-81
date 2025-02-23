@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { HexletCode } from '../HexletCode';
+import { HexletCode } from '../modules/HexletCode';
 
 const template = { name: 'rob', job: 'hexlet', gender: 'm' };
 
@@ -35,4 +35,12 @@ test('formFor with submit button', () => {
     '<input type="submit" value="Save">' +
     '</form>'
   );
+});
+
+test('should throw error if field does not exist in template', () => {
+  expect(() => {
+    HexletCode.formFor(template, { method: 'post' }, (f) => {
+      f.input('nonexistent');
+    });
+  }).toThrow(Error);
 });

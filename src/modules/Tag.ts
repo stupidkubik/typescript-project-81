@@ -1,4 +1,5 @@
 import { TagAttributes } from './types';
+
 export class Tag {
   private tagName: string;
   private attributes: TagAttributes;

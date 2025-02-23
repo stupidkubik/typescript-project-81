@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { Tag } from '../Tag'
-import { HexletCode } from '../HexletCode';
+import { Tag } from '../modules/Tag'
+import { HexletCode } from '../modules/HexletCode';
 
 const template = { name: 'rob', job: 'hexlet', gender: 'm' };
 

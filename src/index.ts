@@ -1,3 +1,3 @@
-import { HexletCode } from './HexletCode';
+import { HexletCode } from './modules/HexletCode';
 
-export default HexletCode;
+export default new HexletCode();
