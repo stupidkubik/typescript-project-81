@@ -10,11 +10,11 @@ test('formFor with input and textarea', () => {
   });
 
   expect(form).toBe(
-    '<form action="#" method="post">' +
+    '<form method="post" action="#">' +
     '<label for="name">Name</label>' +
-    '<input type="text" name="name" value="rob">' +
+    '<input name="name" type="text" value="rob">' +
     '<label for="job">Job</label>' +
-    '<textarea name="job" cols="20" rows="40">hexlet</textarea>' +
+    '<textarea cols="20" rows="40" name="job">hexlet</textarea>' +
     '</form>'
   );
 });
@@ -27,12 +27,30 @@ test('formFor with submit button', () => {
   });
 
   expect(form).toBe(
-    '<form action="#" method="post">' +
+    '<form method="post" action="#">' +
     '<label for="name">Name</label>' +
-    '<input type="text" name="name" value="rob">' +
+    '<input name="name" type="text" value="rob">' +
     '<label for="job">Job</label>' +
-    '<input type="text" name="job" value="hexlet">' +
+    '<input name="job" type="text" value="hexlet">' +
     '<input type="submit" value="Save">' +
+    '</form>'
+  );
+});
+
+test('formFor with submit button custom text', () => {
+  const form = HexletCode.formFor(template, { method: 'post' }, (f) => {
+    f.input('name');
+    f.input('job', { as: 'textarea' });
+    f.submit('Wow');
+  });
+
+  expect(form).toBe(
+    '<form method="post" action="#">' +
+    '<label for="name">Name</label>' +
+    '<input name="name" type="text" value="rob">' +
+    '<label for="job">Job</label>' +
+    '<textarea cols="20" rows="40" name="job">hexlet</textarea>' +
+    '<input type="submit" value="Wow">' +
     '</form>'
   );
 });
